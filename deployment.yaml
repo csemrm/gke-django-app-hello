@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app-deployment
+spec:
+  replicas: 2  # Number of replicas to run (adjust as needed)
+  selector:
+    matchLabels:
+      app: django-app
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+        - name: django-app
+          image: gcr.io/gcp-docker-cicd/django-app-hello:latest  # Your Docker image from GCR
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-secret
+                  key: secret_key  # Add secret key for Django if needed
+            # You can add more environment variables here like DB credentials
+---
