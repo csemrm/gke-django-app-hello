@@ -6,7 +6,7 @@ metadata:
     app: kuard
     version: "2"
 spec:
-  replicas: 3    // Declaratively Scaling with kubectl apply
+  replicas: 3    # Declaratively Scaling with kubectl apply
   selector:
     matchLabels:
       app: kuard
